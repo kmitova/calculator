@@ -1,5 +1,5 @@
-const equalsBtn = document.getElementById('equals')
+const equalsBtn = document.getElementById("equals");
 
-equalsBtn.addEventListener('click', () => {
-  alert('clicked')
-})
+equalsBtn.addEventListener("click", () => {
+  alert("clicked");
+});
