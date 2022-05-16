@@ -25,3 +25,19 @@ console.log(equation)
 
 let eg = 1 + 0
 console.log(eg)
+
+
+// console.log(firstNum)
+// firstNum += "4"
+// console.log(firstNum); // prints 7
+
+
+
+// let four = document.getElementById('4')
+// four.addEventListener('click', ()=> {
+  
+  
+//   content.textContent = "4"
+
+// })
+

@@ -3,4 +3,14 @@ https://mrbuddh4.github.io/calculator/
 https://www.theodinproject.com/lessons/foundations-calculator
 
 TASKS:
-- 
+- get the number from an event listener using the e.target.id?
+- push the number into an array
+- two arrays: firstnum and secondnum
+- get the operator using an event listener
+- get the second number in the same ways as the first one
+- according to the operator, use a function to calculate and diaplay on screen; clear the arrays (only if the equals button is pressed)
+else:
+- make the result the first num
+- get the next operator
+- get the second num
+if another operator is pressed, display the result of the first two and make the result the first num again
