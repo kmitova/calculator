@@ -17,19 +17,53 @@ let content = document.getElementById("content");
 const numbers = document.querySelectorAll(".num");
 const equalsBtn = document.getElementById("equals");
 
+
+equalsBtn.addEventListener('click', () => {
+  result = operate(operator, firstNum, secondNum)
+  console.log('the result is ' + result)
+  content.textContent = result
+  firstNumTurn = true
+  secondNumTurn = false
+  firstNum = ''
+  secondNum = ''
+})
+
+
   numbers.forEach(number => {
   number.addEventListener('click', (e) => {
     // content.textContent = '0'
-    let digit = e.target.innerText
+    
+    // console.log(digit)
+    if (firstNumTurn) {
+      let digit = e.target.innerText
     if (content.textContent === '0') {
       content.textContent = digit
     } else {
       content.textContent += digit
     }
-    // console.log(digit)
     value = appendNumber(digit)
     console.log("currently on first num");
     console.log(value)
+    firstNum = value
+    console.log(firstNum)
+
+    } 
+    if (secondNumTurn) {
+      let digit = e.target.innerText;
+      if (content.textContent === "0" || content.textContent === '+' || content.textContent === '-' || content.textContent === '*' || content.textContent === '/') {
+        content.textContent = digit;
+      } else {
+        content.textContent += digit;
+      }
+      value = ''
+      console.log(value)
+      value = appendNumber(digit);
+      console.log("currently on second num");
+      console.log(value);
+      secondNum = value
+      console.log(secondNum)
+    }
+    
   })
 })
 
@@ -54,10 +88,13 @@ operators.forEach(operatorBtn => {
       case 'divide':
         sign = '/'
         break
+      case 'equals':
+        sign = '='
+        break
       default:
         break
     }
-    console.log(sign)
+    // console.log(sign)
     content.textContent = sign
     operator = getOperator(sign)
     console.log(operator)
@@ -65,12 +102,19 @@ operators.forEach(operatorBtn => {
 })
 
 function getOperator(op) {
+  firstNumTurn = false
+  secondNumTurn = true
   return op
 }
 
+let counter  = 0
 
 //function that appends number
 function appendNumber(d) {
+  if (secondNumTurn && counter === 0) {
+    num = 0
+    counter += 1
+  }
   if (num === 0) {
     num = d
   } else {
