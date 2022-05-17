@@ -36,9 +36,10 @@ if (isFirstNum) {
 // console.log(num)
 
 if (isSecondNum) {
+  content.textContent = '0'
   numbers.forEach((number) => {
     number.addEventListener("click", (e) => {
-      // content.textContent = 0
+      content.textContent = '0'
       digit = e.target.id;
       console.log(digit);
 
@@ -56,14 +57,14 @@ if (isSecondNum) {
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
     operatorType = e.target.id
-    console.log(operatorType)
+    // console.log(operatorType)
     selectedOperator = true
-    
+
     if (isFirstNum) {
       firstNum = Number(num) // get the first number
       console.log("the first num is " + firstNum)
       num = 0
-      content.textContent = 0
+      content.textContent = '0'
       isFirstNum = false
       isSecondNum = true
       
@@ -72,20 +73,22 @@ operators.forEach((operator) => {
       secondNum = Number(num)
       console.log("the second num is " + secondNum)
       num = 0
-      content.textContent = 0
+      content.textContent = '0'
       isSecondNum = false
       isFirstNum = true
       
     }
-    console.log(firstNum)
-    console.log(secondNum)
+    // console.log(firstNum)
+    // console.log(secondNum)
     if (operatorType == "add") {
       console.log("addition selected")
+      console.log(firstNum)
+      console.log(secondNum)
       result = Number(firstNum + secondNum)
-      console.log(result)
-      content.textContent = result
-      firstNum = result
-      secondNum = 0
+      // console.log("result is: " + result)
+      // content.textContent = result.toString()
+      // firstNum = result
+      // secondNum = 0
     }
     // FIGURE OUT HOW TO MAKE THE CONTENT ZERO WHEN ADDING THE SECOND NUM
 
@@ -94,7 +97,10 @@ operators.forEach((operator) => {
     // console.log(operatorType)
   })
 })
-
+equalsBtn.addEventListener('click', () => {
+  content.textContent = result
+  console.log(result)
+})
 // function addition(firstNum, secondNum) {
 //   console.log(firstNum + secondNum)
 //   return firstNum + secondNum
