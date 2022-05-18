@@ -12,11 +12,13 @@ let secondNum = "";
 let value;
 let firstNumTurn = true;
 let secondNumTurn = false;
+let decimalAllowed = true;
 const operators = document.querySelectorAll(".operator");
 let content = document.getElementById("content");
 const numbers = document.querySelectorAll(".num");
 const equalsBtn = document.getElementById("equals");
 const clearBtn = document.getElementById("ac");
+let previousDigit = "";
 
 function clear() {
   content.textContent = 0;
@@ -34,7 +36,12 @@ equalsBtn.addEventListener("click", () => {
   if (firstNum != "" && secondNum !== "") {
     result = operate(operator, firstNum, secondNum);
     console.log("the result is " + result);
-    content.textContent = result;
+    if ((result.toString()).length > 10) {
+      content.textContent = result.toFixed(6);
+    } else {
+      content.textContent = result;
+    }
+    
     // firstNumTurn = true
     // secondNumTurn = false
     // firstNum = ''
@@ -49,42 +56,89 @@ equalsBtn.addEventListener("click", () => {
 numbers.forEach((number) => {
   number.addEventListener("click", (e) => {
     // content.textContent = '0'
+    let digit = e.target.innerText;
+    console.log(digit);
+    if (digit === "." && previousDigit === ".") {
+      alert("Cannot have a decimal point after another.");
+    } else {
+      if (firstNumTurn) {
+        if (content.textContent === "0") {
+          content.textContent = digit;
+        } else {
+          content.textContent += digit;
+        }
+        console.log(digit);
+        value = appendNumber(digit);
+        console.log("currently on first num");
+        console.log(value);
+        firstNum = Number(value);
+        console.log(firstNum);
+      }
+      if (secondNumTurn) {
+        // let digit = e.target.innerText;
+        // console.log(digit)
+        if (
+          content.textContent === "0" ||
+          content.textContent === "+" ||
+          content.textContent === "-" ||
+          content.textContent === "*" ||
+          content.textContent === "/"
+        ) {
+          content.textContent = digit;
+        } else {
+          content.textContent += digit;
+        }
+        value = "";
+        console.log(value);
 
-    // console.log(digit)
-    if (firstNumTurn) {
-      let digit = e.target.innerText;
-      if (content.textContent === "0") {
-        content.textContent = digit;
-      } else {
-        content.textContent += digit;
+        value = appendNumber(digit);
+
+        console.log("currently on second num");
+        console.log(value);
+        secondNum = Number(value);
+        console.log(secondNum);
       }
-      value = appendNumber(digit);
-      console.log("currently on first num");
-      console.log(value);
-      firstNum = value;
-      console.log(firstNum);
     }
-    if (secondNumTurn) {
-      let digit = e.target.innerText;
-      if (
-        content.textContent === "0" ||
-        content.textContent === "+" ||
-        content.textContent === "-" ||
-        content.textContent === "*" ||
-        content.textContent === "/"
-      ) {
-        content.textContent = digit;
-      } else {
-        content.textContent += digit;
-      }
-      value = "";
-      console.log(value);
-      value = appendNumber(digit);
-      console.log("currently on second num");
-      console.log(value);
-      secondNum = value;
-      console.log(secondNum);
-    }
+    // if (firstNumTurn) {
+
+    //   if (content.textContent === "0") {
+    //     content.textContent = digit;
+    //   } else {
+    //     content.textContent += digit;
+    //   }
+    //   console.log(digit)
+    //   value = appendNumber(digit);
+    //   console.log("currently on first num");
+    //   console.log(value);
+    //   firstNum = Number(value);
+    //   console.log(firstNum);
+    // }
+    // if (secondNumTurn) {
+    //   // let digit = e.target.innerText;
+    //   // console.log(digit)
+    //   if (
+    //     content.textContent === "0" ||
+    //     content.textContent === "+" ||
+    //     content.textContent === "-" ||
+    //     content.textContent === "*" ||
+    //     content.textContent === "/"
+    //   ) {
+    //     content.textContent = digit;
+    //   } else {
+    //     content.textContent += digit;
+    //   }
+    //   value = "";
+    //   console.log(value);
+
+    //   value = appendNumber(digit);
+
+    //   console.log("currently on second num");
+    //   console.log(value);
+    //   secondNum = Number(value);
+    //   console.log(secondNum);
+    // }
+
+    previousDigit = digit;
   });
 });
 
@@ -109,9 +163,9 @@ operators.forEach((operatorBtn) => {
         case "equals":
           sign = "=";
           break;
-        case 'percent':
-          sign = '%'
-          break
+        case "percent":
+          sign = "%";
+          break;
         default:
           break;
       }
@@ -128,21 +182,26 @@ function getOperator(op) {
   secondNumTurn = true;
   return op;
 }
+let counter = 0;
 
 //function that appends number
 function appendNumber(d) {
-  let counter = 0;
-  if (secondNumTurn && counter === 0) {
+  counter = 0;
+  if (secondNumTurn && secondNum === "") {
     num = 0;
     counter += 1;
   }
+  // counter = 0
   if (num === 0) {
     num = d;
   } else {
+    console.log(d);
     num += d;
+    console.log(num);
   }
+  // num = Number(num);
   console.log("current num is: " + num);
-  num = Number(num);
+
   // if (firstNum === '') {
   //   firstNum = num
   //   return firstNum
