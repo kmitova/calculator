@@ -25,23 +25,25 @@ function clear() {
   secondNum = "";
   firstNumTurn = true;
   secondNumTurn = false;
-  num = 0
+  num = 0;
 }
 
 clearBtn.addEventListener("click", clear);
 
 equalsBtn.addEventListener("click", () => {
-  result = operate(operator, firstNum, secondNum);
-  console.log("the result is " + result);
-  content.textContent = result;
-  // firstNumTurn = true
-  // secondNumTurn = false
-  // firstNum = ''
-  // secondNum = ''
-  firstNum = result;
-  firstNumTurn = false;
-  secondNumTurn = true;
-  secondNum = "";
+  if (firstNum != "" && secondNum !== "") {
+    result = operate(operator, firstNum, secondNum);
+    console.log("the result is " + result);
+    content.textContent = result;
+    // firstNumTurn = true
+    // secondNumTurn = false
+    // firstNum = ''
+    // secondNum = ''
+    firstNum = result;
+    firstNumTurn = false;
+    secondNumTurn = true;
+    secondNum = "";
+  }
 });
 
 numbers.forEach((number) => {
@@ -88,31 +90,36 @@ numbers.forEach((number) => {
 
 operators.forEach((operatorBtn) => {
   operatorBtn.addEventListener("click", (e) => {
-    let sign = e.target.id;
+    if (firstNum !== "") {
+      let sign = e.target.id;
 
-    switch (sign) {
-      case "add":
-        sign = "+";
-        break;
-      case "multiply":
-        sign = "*";
-        break;
-      case "substract":
-        sign = "-";
-        break;
-      case "divide":
-        sign = "/";
-        break;
-      case "equals":
-        sign = "=";
-        break;
-      default:
-        break;
+      switch (sign) {
+        case "add":
+          sign = "+";
+          break;
+        case "multiply":
+          sign = "*";
+          break;
+        case "substract":
+          sign = "-";
+          break;
+        case "divide":
+          sign = "/";
+          break;
+        case "equals":
+          sign = "=";
+          break;
+        case 'percent':
+          sign = '%'
+          break
+        default:
+          break;
+      }
+      // console.log(sign)
+      content.textContent = sign;
+      operator = getOperator(sign);
+      console.log(operator);
     }
-    // console.log(sign)
-    content.textContent = sign;
-    operator = getOperator(sign);
-    console.log(operator);
   });
 });
 
@@ -193,8 +200,8 @@ function multiplication(x, y) {
 
 function division(x, y) {
   if (y === 0) {
-    console.log("Cannot divide by 0!");
-    clearAll();
+    alert("Cannot divide by 0!");
+    clear();
     current.innerText = "0";
     return;
   }
