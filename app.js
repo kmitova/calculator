@@ -2,135 +2,149 @@ let operator;
 let num = 0;
 let numArray = [];
 let operatorSelected = false;
-let currentOperator
-let displayedValue
-let previousValue
-let currentValue
-let computed = false
-let firstNum = ''
-let secondNum = ''
-let value
-let firstNumTurn = true
-let secondNumTurn = false
+let currentOperator;
+let displayedValue;
+let previousValue;
+let currentValue;
+let computed = false;
+let firstNum = "";
+let secondNum = "";
+let value;
+let firstNumTurn = true;
+let secondNumTurn = false;
 const operators = document.querySelectorAll(".operator");
 let content = document.getElementById("content");
 const numbers = document.querySelectorAll(".num");
 const equalsBtn = document.getElementById("equals");
+const clearBtn = document.getElementById("ac");
 
+function clear() {
+  content.textContent = 0;
+  result = 0;
+  firstNum = "";
+  secondNum = "";
+  firstNumTurn = true;
+  secondNumTurn = false;
+  num = 0
+}
 
-equalsBtn.addEventListener('click', () => {
-  result = operate(operator, firstNum, secondNum)
-  console.log('the result is ' + result)
-  content.textContent = result
-  firstNumTurn = true
-  secondNumTurn = false
-  firstNum = ''
-  secondNum = ''
-})
+clearBtn.addEventListener("click", clear);
 
+equalsBtn.addEventListener("click", () => {
+  result = operate(operator, firstNum, secondNum);
+  console.log("the result is " + result);
+  content.textContent = result;
+  // firstNumTurn = true
+  // secondNumTurn = false
+  // firstNum = ''
+  // secondNum = ''
+  firstNum = result;
+  firstNumTurn = false;
+  secondNumTurn = true;
+  secondNum = "";
+});
 
-  numbers.forEach(number => {
-  number.addEventListener('click', (e) => {
+numbers.forEach((number) => {
+  number.addEventListener("click", (e) => {
     // content.textContent = '0'
-    
+
     // console.log(digit)
     if (firstNumTurn) {
-      let digit = e.target.innerText
-    if (content.textContent === '0') {
-      content.textContent = digit
-    } else {
-      content.textContent += digit
-    }
-    value = appendNumber(digit)
-    console.log("currently on first num");
-    console.log(value)
-    firstNum = value
-    console.log(firstNum)
-
-    } 
-    if (secondNumTurn) {
       let digit = e.target.innerText;
-      if (content.textContent === "0" || content.textContent === '+' || content.textContent === '-' || content.textContent === '*' || content.textContent === '/') {
+      if (content.textContent === "0") {
         content.textContent = digit;
       } else {
         content.textContent += digit;
       }
-      value = ''
-      console.log(value)
+      value = appendNumber(digit);
+      console.log("currently on first num");
+      console.log(value);
+      firstNum = value;
+      console.log(firstNum);
+    }
+    if (secondNumTurn) {
+      let digit = e.target.innerText;
+      if (
+        content.textContent === "0" ||
+        content.textContent === "+" ||
+        content.textContent === "-" ||
+        content.textContent === "*" ||
+        content.textContent === "/"
+      ) {
+        content.textContent = digit;
+      } else {
+        content.textContent += digit;
+      }
+      value = "";
+      console.log(value);
       value = appendNumber(digit);
       console.log("currently on second num");
       console.log(value);
-      secondNum = value
-      console.log(secondNum)
+      secondNum = value;
+      console.log(secondNum);
     }
-    
-  })
-})
+  });
+});
 
+operators.forEach((operatorBtn) => {
+  operatorBtn.addEventListener("click", (e) => {
+    let sign = e.target.id;
 
-
-
-operators.forEach(operatorBtn => {
-  operatorBtn.addEventListener('click', (e) => {
-    let sign = e.target.id
-    
-    
     switch (sign) {
-      case 'add':
-        sign = "+"
-        break
-      case 'multiply':
-        sign = '*'
-        break
-      case 'substract':
-        sign = '-'
-        break
-      case 'divide':
-        sign = '/'
-        break
-      case 'equals':
-        sign = '='
-        break
+      case "add":
+        sign = "+";
+        break;
+      case "multiply":
+        sign = "*";
+        break;
+      case "substract":
+        sign = "-";
+        break;
+      case "divide":
+        sign = "/";
+        break;
+      case "equals":
+        sign = "=";
+        break;
       default:
-        break
+        break;
     }
     // console.log(sign)
-    content.textContent = sign
-    operator = getOperator(sign)
-    console.log(operator)
-  })
-})
+    content.textContent = sign;
+    operator = getOperator(sign);
+    console.log(operator);
+  });
+});
 
 function getOperator(op) {
-  firstNumTurn = false
-  secondNumTurn = true
-  return op
+  firstNumTurn = false;
+  secondNumTurn = true;
+  return op;
 }
-
-let counter  = 0
 
 //function that appends number
 function appendNumber(d) {
+  let counter = 0;
   if (secondNumTurn && counter === 0) {
-    num = 0
-    counter += 1
+    num = 0;
+    counter += 1;
   }
   if (num === 0) {
-    num = d
+    num = d;
   } else {
-    num += d
+    num += d;
   }
-  console.log('current num is: ' + num)
-  num = Number(num)
+  console.log("current num is: " + num);
+  num = Number(num);
   // if (firstNum === '') {
   //   firstNum = num
   //   return firstNum
-  // } 
+  // }
   // else if (secondNum === '' && firstNum !== '') {
   //   secondNum = num
   //   return secondNum
   // }
-  return num
+  return num;
 }
 
 // if (firstNum === '') {
@@ -191,7 +205,6 @@ function percent(x, y) {
   return x * (y / 100);
 }
 
-
 // equalsBtn.addEventListener('click', ()=> {
 //   compute()
 // })
@@ -202,7 +215,6 @@ function percent(x, y) {
 //     showOnDisplay()
 //   })
 // })
-
 
 // function appendNumber(number) {
 //   if (computed) {
@@ -254,42 +266,14 @@ function percent(x, y) {
 //   }
 //   console.log(operator)
 //   return operator
-  
+
 //   // else {
 //   //   console.log(operator)
 //   //   operator = content.innerText
-    
+
 //   // }
 
-  
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // FUNCTIONS
 // console.log(numbers)
@@ -389,13 +373,11 @@ function percent(x, y) {
 //   });
 // }
 
-
 // getNum();
 // getOperator();
 // if (num !== 0) {
 //   getNum()
 // }
-
 
 // function getOperator() {
 //   operators.forEach((sign) => {
@@ -411,10 +393,10 @@ function percent(x, y) {
 // function operate() {
 //   let n1 = getNum()
 //   console.log(n1)
-  
+
 //   getOperator()
 //   let n2 = getNum()
-  
+
 //   let op = getOperator()
 //   let n2 = getNum()
 //   console.log(n1, op, n2)
