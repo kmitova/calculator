@@ -12,7 +12,6 @@ body {
 
 main {
   display: flex;
-  /* align-items: center; */
   padding-top: 0;
   justify-content: center;
   height: 100vh;
@@ -26,6 +25,7 @@ h1 {
   padding-bottom: 30px;
   padding-top: 30px;
   margin: 0;
+  font-weight: 700;
 }
 .calculator {
   margin: auto;
@@ -78,6 +78,7 @@ button {
 
 #equals {
   background-color: #ff477e;
+  font-weight: bold;
 }
 
 #multiply {
@@ -88,4 +89,5 @@ button:hover,
 #equals:hover {
   transform: scale(1.05);
   background-color: #ff0a54;
+  font-weight: bold;
 }
